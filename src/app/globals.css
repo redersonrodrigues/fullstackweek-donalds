@@ -41,10 +41,10 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground h-full;
+    @apply h-full bg-background text-foreground;
   }
 
-  hstml {
-    @apply h-full; 
-}
+  html {
+    @apply h-full;
+  }
 }
