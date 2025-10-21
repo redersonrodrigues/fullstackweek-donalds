@@ -44,7 +44,7 @@ export const createOrder = async (input: CreateOrderInput) => {
       status: "PENDING",
       customerName: input.customerName,
       customerCpf: removeCpfPunctuation(input.customerCpf),
-      orderProducts: {
+      orderProduct: {
         createMany: {
           data: productsWithPricesAndQuantities,
         },
