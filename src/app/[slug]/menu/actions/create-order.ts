@@ -45,7 +45,7 @@ export const createOrder = async (input: CreateOrderInput) => {
       status: "PENDING",
       customerName: input.customerName,
       customerCpf: removeCpfPunctuation(input.customerCpf),
-      orderProduct: {
+      orderProducts: {
         createMany: {
           data: productsWithPricesAndQuantities,
         },
@@ -59,8 +59,8 @@ export const createOrder = async (input: CreateOrderInput) => {
     },
   });
   revalidatePath(`/${input.slug}/orders`);
-  redirect(
-    `/${input.slug}/orders?cpf=${removeCpfPunctuation(input.customerCpf)}`,
-  );
+  // redirect(
+  //   `/${input.slug}/orders?cpf=${removeCpfPunctuation(input.customerCpf)}`,
+  // );
   return order;
 };

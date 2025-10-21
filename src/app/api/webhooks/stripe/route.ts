@@ -36,7 +36,7 @@ export async function POST(request: Request) {
           id: Number(orderId),
         },
         data: {
-          status: "IN_PREPARATION",
+          status: "PAYMENT_CONFIRMED",
         },
         include: {
           restaurant: {
@@ -62,7 +62,7 @@ export async function POST(request: Request) {
           id: Number(orderId),
         },
         data: {
-          status: "PENDING",
+          status: "PAYMENT_FAILED",
         },
         include: {
           restaurant: {

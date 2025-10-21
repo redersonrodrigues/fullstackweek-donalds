@@ -56,11 +56,11 @@ model Product {
 model Order {
   id                Int               @id @default(autoincrement())
   total             Float
-  status            OrderStatus       @default(PENDING)
+  status            OrderStatus
   consumptionMethod ConsumptionMethod
   restaurant        Restaurant        @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   restaurantId      String
-  orderProduct      OrderProduct[]
+  orderProducts     OrderProduct[]
   customerName      String
   customerCpf       String
   createdAt         DateTime          @default(now())
@@ -82,10 +82,12 @@ model OrderProduct {
 enum OrderStatus {
   PENDING
   IN_PREPARATION
+  PAYMENT_CONFIRMED
+  PAYMENT_FAILED
   FINISHED
 }
 
 enum ConsumptionMethod {
-  DINE_IN
   TAKEAWAY
+  DINE_IN
 }

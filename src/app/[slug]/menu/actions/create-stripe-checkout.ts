@@ -42,7 +42,7 @@ export const createStripeCheckout = async ({
   searchParams.set("consumptionMethod", consumptionMethod);
   searchParams.set("cpf", removeCpfPunctuation(cpf));
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
+    payment_method_types: ["card","boleto"],
     mode: "payment",
     success_url: `${origin}/${slug}/orders?${searchParams.toString()}`,
     cancel_url: `${origin}/${slug}/orders?${searchParams.toString()}`,
