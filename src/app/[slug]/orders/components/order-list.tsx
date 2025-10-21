@@ -20,7 +20,7 @@ interface OrderListProps {
             avatarImageUrl: true;
           };
         };
-        orderProducts: {
+        orderProduct: {
           include: {
             product: true;
           };
@@ -34,8 +34,6 @@ const getStatusLabel = (status: OrderStatus) => {
   if (status === "FINISHED") return "Finalizado";
   if (status === "IN_PREPARATION") return "Em preparo";
   if (status === "PENDING") return "Pendente";
-  if (status === "PAYMENT_CONFIRMED") return "Pagamento confirmado";
-  if (status === "PAYMENT_FAILED") return "Pagamento falhou";
   return "";
 };
 
@@ -60,7 +58,7 @@ const OrderList = ({ orders }: OrderListProps) => {
         <Card key={order.id}>
           <CardContent className="space-y-4 p-5">
             <div
-              className={`w-fit rounded-full px-2 py-1 text-xs font-semibold text-white ${([OrderStatus.PAYMENT_CONFIRMED, OrderStatus.FINISHED] as OrderStatus[]).includes(order.status) ? "bg-green-500 text-white" : "bg-gray-200 text-gray-500"} `}
+              className={`w-fit rounded-full px-2 py-1 text-xs font-semibold text-white ${order.status === OrderStatus.FINISHED ? "bg-green-500 text-white" : "bg-gray-200 text-gray-500"} `}
             >
               {getStatusLabel(order.status)}
             </div>
@@ -77,7 +75,7 @@ const OrderList = ({ orders }: OrderListProps) => {
             </div>
             <Separator />
             <div className="space-y-2">
-              {order.orderProducts.map((orderProduct) => (
+              {order.orderProduct.map((orderProduct) => (
                 <div key={orderProduct.id} className="flex items-center gap-2">
                   <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-400 text-xs font-semibold text-white">
                     {orderProduct.quantity}

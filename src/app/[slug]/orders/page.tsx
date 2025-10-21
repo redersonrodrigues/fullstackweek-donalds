@@ -30,7 +30,7 @@ const OrdersPage = async ({ searchParams }: OrdersPageProps) => {
           avatarImageUrl: true,
         },
       },
-      orderProducts: {
+      orderProduct: {
         include: {
           product: true,
         },
