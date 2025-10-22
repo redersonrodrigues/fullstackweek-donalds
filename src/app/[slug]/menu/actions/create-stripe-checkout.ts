@@ -36,13 +36,14 @@ export const createStripeCheckout = async ({
     },
   });
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: "2025-02-24.acacia",
+    apiVersion: "2025-09-30.clover" as any,
   });
   const searchParams = new URLSearchParams();
   searchParams.set("consumptionMethod", consumptionMethod);
   searchParams.set("cpf", removeCpfPunctuation(cpf));
+  searchParams.set("orderId", orderId.toString());
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card","boleto"],
+    payment_method_types: ["card", "boleto"],
     mode: "payment",
     success_url: `${origin}/${slug}/orders?${searchParams.toString()}`,
     cancel_url: `${origin}/${slug}/orders?${searchParams.toString()}`,

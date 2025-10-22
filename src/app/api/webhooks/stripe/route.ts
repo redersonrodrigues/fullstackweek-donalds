@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     throw new Error("Missing Stripe secret key");
   }
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: "2025-02-24.acacia",
+    apiVersion: "2025-09-30.clover" as any,
   });
 
   const signature = request.headers.get("stripe-signature");
@@ -47,6 +47,7 @@ export async function POST(request: Request) {
         },
       });
       revalidatePath(`/${order.restaurant.slug}/menu`);
+      revalidatePath(`/${order.restaurant.slug}/orders`);
       break;
     }
 
@@ -73,6 +74,7 @@ export async function POST(request: Request) {
         },
       });
       revalidatePath(`/${order.restaurant.slug}/menu`);
+      revalidatePath(`/${order.restaurant.slug}/orders`);
       break;
     }
   }

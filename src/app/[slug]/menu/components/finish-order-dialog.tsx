@@ -92,9 +92,9 @@ const FinishOrderDialog = ({ open, onOpenChange }: FinishOrderDialogProps) => {
         consumptionMethod,
         cpf: data.cpf,
       });
-      if (!process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY) return;
+      if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) return;
       const stripe = await loadStripe(
-        process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY,
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
       );
       stripe?.redirectToCheckout({
         sessionId: sessionId,

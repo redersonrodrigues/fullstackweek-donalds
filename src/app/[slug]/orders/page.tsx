@@ -5,16 +5,28 @@ import CpfForm from "./components/cpf-form";
 import OrderList from "./components/order-list";
 
 interface OrdersPageProps {
-  searchParams: Promise<{ cpf: string }>;
+  searchParams: Promise<{ cpf: string; orderId?: string }>;
 }
 
 const OrdersPage = async ({ searchParams }: OrdersPageProps) => {
-  const { cpf } = await searchParams;
+  const { cpf, orderId } = await searchParams;
   if (!cpf) {
     return <CpfForm />;
   }
   if (!isValidCpf(cpf)) {
     return <CpfForm />;
+  }
+
+  // Update order status if coming from successful payment
+  if (orderId) {
+    try {
+      await db.order.update({
+        where: { id: Number(orderId) },
+        data: { status: "PAYMENT_CONFIRMED" },
+      });
+    } catch (error) {
+      console.error("Error updating order status:", error);
+    }
   }
   const orders = await db.order.findMany({
     orderBy: {
